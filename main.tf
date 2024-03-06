@@ -93,10 +93,10 @@ egress {
 data "aws_ami" "myapp_ami" {
   most_recent = true
   owners = ["amazon"]
-
+  
   filter {
     name   = "name"
-    values = ["ami-*"]
+    values = ["*-ami-*"]
   }
 
   filter {
@@ -114,7 +114,7 @@ resource "aws_key_pair" "ssh_key" {
   value = aws_instance.myapp_server.public_ip
 }
 resource "aws_instance" "myapp_server" {
-  ami           = data.aws_ami.myapp_ami.id
+  ami = data.aws_ami.myapp_ami.id
   instance_type = "var.instance_type"
 
   subnet_id = aws_subnet.myapp_subnet.id
